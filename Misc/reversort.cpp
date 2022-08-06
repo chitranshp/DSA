@@ -2,23 +2,21 @@
 
 
 #include<bits/stdc++.h>
-
 using namespace std;
+
 int reversort(vector<int> &L)
 {
    int cost = 0;
    for(int i = 0; i<L.size()-1; i++)
    {
-    int m = *min_element(L.begin()+i, L.end());     //element
-    vector<int>::iterator x = find(L.begin()+i, L.end(), m);        //index
+    int m = *min_element(L.begin()+i, L.end());     
+    vector<int>::iterator x = find(L.begin()+i, L.end(), m);       
     reverse(L.begin()+i, x+1);
     cost += distance(L.begin(), x) - i + 1;
-
-
    }
-   return cost;
-    
+   return cost;   
 }
+
 int main()
 {   
     #ifndef ONLINE_JUDGE
@@ -40,4 +38,5 @@ int main()
         }
         cout<<"Case #"<<c+1<<": "<<reversort(L)<<endl;
     }
+   return 0;
 }
