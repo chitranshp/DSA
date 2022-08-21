@@ -9,6 +9,7 @@ struct trienode
     bool isendofword;    
 };
 
+//Returns a new node which is initialize to NULLs.
 struct trienode *getnode(void)
 {
     struct trienode *pnode = new trienode;
@@ -20,6 +21,7 @@ struct trienode *getnode(void)
     return pnode;
 }
 
+//If key is not present, It will insert it. Else if, it's present as prefix of any other word in trie then it will mark endofword as True for last letter.
 void insert(struct trienode *root, string key)
 {
     struct trienode *pcrawl = root;
@@ -53,10 +55,13 @@ int main()
 {
     string keys[] = {"the", "they", "them", "their", "a", "answer", "any"};
     int n = sizeof(keys)/sizeof(keys[0]);
-
+    //Constructing Trie
     struct trienode *root = getnode();
+    
+    //Inserting keys
     for(int i = 0; i < n; i++)
         insert(root, keys[i]);
+    
     search(root, "the")? (cout << "Yes\n") : (cout << "No\n");
     search(root, "a")? (cout << "Yes\n") : (cout << "No\n");
     search(root, "answer")? (cout << "Yes\n") : (cout << "No\n");
