@@ -10,9 +10,12 @@ vector<int> sortArray(vector<int>& nums)
         for(j = 0; j < nums.size() - i - 1; j++)
         {
             if(nums[j] > nums[j + 1])
+            {
                 swap(nums[j], nums[j + 1]);
+                swapped = 1;
+            }   
             
-            swapped = 1;
+            
         }
         if(swapped == 0)
             break;
