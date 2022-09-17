@@ -3,6 +3,7 @@
 using namespace std;
 
 //Naive Approach - O(n^2) and SC - O(1)
+/*
 int maxLen(vector<int>&A, int n)
 {   
     int curr_sum = 0, maxlen = 0;
@@ -29,6 +30,7 @@ int maxLen(vector<int>&A, int n)
     }
     return maxlen;
 }
+*/
 
 //Using HashMap - O(n) and SC - O(n)
 int maxLen(vector<int>&A, int n)
