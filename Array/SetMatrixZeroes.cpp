@@ -1,6 +1,6 @@
 //https://leetcode.com/problems/set-matrix-zeroes/
 
-/* This is O(m + n) solution. */
+/* This is O(mn) TC and O(m + n) SC solution. */
 
 class Solution {
 public:
