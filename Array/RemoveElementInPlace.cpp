@@ -1,3 +1,5 @@
+// https://leetcode.com/problems/remove-element/
+
 #include<bits/stdc++.h>
 using namespace std;
 
