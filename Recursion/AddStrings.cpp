@@ -30,6 +30,11 @@ public:
     {
         string res;
         addHelper(num1, num2, num1.length() - 1, num2.length() - 1, 0, res);
+
+        //Handles leading zeroes. (00000 and 00)
+        while(res.back() == 0 && res.size() > 1)
+            res.pop_back();
+
         reverse(res.begin(), res.end());
         return res;
     }
