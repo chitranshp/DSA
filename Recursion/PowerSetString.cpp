@@ -2,6 +2,30 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+//Recursion + Backtracking
+/*
+void solve(string s, string &curr, int index, vector<string> &ans)
+{
+	if(index == s.length())
+	{
+	    if(curr == "")
+	        return;
+	    ans.push_back(curr);
+	    return;
+	}
+	        
+	//Include
+	curr = curr + s[index];
+	solve(s, curr, index + 1, ans);
+	//Exlcude
+	curr.pop_back();	//Backtrack
+	        
+	solve(s, curr, index + 1, ans);
+ 
+	return;
+}
+*/
+
 void solve(string s, string curr, int index, vector<string> &ans)
 {
 	if(index == s.length())
