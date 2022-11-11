@@ -31,6 +31,7 @@ public:
     {
         vector<vector<int>> res;
         vector<int> temp;
+        // Sorting the input 
         sort(candidates.begin(), candidates.end());
         helperfun(res, candidates, target, 0, temp);
         return res;
