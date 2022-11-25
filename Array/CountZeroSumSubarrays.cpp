@@ -1,4 +1,5 @@
 //https://practice.geeksforgeeks.org/problems/zero-sum-subarrays1825/1?page=2&curated[]=1&sortBy=submissions
+// TC O(n)
 
 class Solution{
     public:
