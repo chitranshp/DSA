@@ -16,7 +16,7 @@ public:
     bool hasPathSum(TreeNode* root, int targetSum) 
     {
         
-        if(root == NULL)
+        if(root == nullptr)
             return false;
 
         targetSum -= root->val;
