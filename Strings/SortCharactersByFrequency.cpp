@@ -20,3 +20,33 @@ public:
         return s;
     }
 };
+
+
+//Another approach without using Inbuilt sort function and comperator
+
+/*
+class Solution {
+public:
+
+    string frequencySort(string s) 
+    {
+        unordered_map<char, int> freq;  //To store character(key) and frequency(Value)
+        map<int, string> sortedorder;   //To Store characters(Value) in ascending order of frequency(Key)
+        string res = "";
+
+        for(auto &it : s)
+            freq[it]++;
+
+        for(auto &it : freq)
+            sortedorder[it.second] += it.first;
+        
+        for(auto it = sortedorder.rbegin(); it != sortedorder.rend(); it++)     //In reverse
+        {
+            for(auto &c : it->second)
+                res += string(it->first, c);
+        }
+        
+        return res;
+    }
+};
+*/
