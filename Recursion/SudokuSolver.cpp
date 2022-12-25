@@ -7,6 +7,37 @@ public:
         solver(board);
     }
 
+    // Optimized version. Improves performance by 10 ms approx. Here, we don't check the start of sudoku every time. Instead, we start looking for empty spaces from the last filled place. And if we reach the 9th row. We have finished the puzzle
+    /*
+    bool solver(vector<vector<char>>& board, int row, int col)
+    {
+        if(row == 9)
+            return true;
+
+        if(col >= 9)
+            return solver(board, row + 1, 0);
+
+        if(board[row][col] != '.')
+            return solver(board, row, col + 1);
+
+        for(char c = '1'; c <= '9'; c++)
+        {
+            if(isvalid(board, row, col, c) == true)
+            {
+                board[row][col] = c;
+
+                if(solver(board, row, col + 1) == true)
+                    return true;
+                else
+                    board[row][col] = '.';
+            }
+        }
+
+        return false;
+        
+    }
+    */
+        
     bool solver(vector<vector<char>>& board)
     {
         for(int i = 0; i < board.size(); i++)
