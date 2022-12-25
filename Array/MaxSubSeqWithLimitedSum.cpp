@@ -12,7 +12,7 @@ public:
             nums[i] += nums[i - 1];         //n
 
         for(int q = 0; q < queries.size(); q++)     //mlogn where m is the size of queries
-            queries[q] = upper_bound(nums.begin(), nums.end(), queries[q]) - nums.begin();
+            queries[q] = upper_bound(nums.begin(), nums.end(), queries[q]) - nums.begin();  //Upper bound will return iterator to element next to our required element ie (x + 1)th element. But after subtracting nums.begin(), we will get the index to xth element
 
         return queries;
     }
