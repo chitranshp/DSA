@@ -1,5 +1,45 @@
 // https://leetcode.com/problems/lexicographically-smallest-equivalent-string/submissions/
 
+// Approach 1
+class Solution {
+public:
+    int parent[26];
+
+    int find(int x)
+    {
+        if(parent[x] == -1)
+            return x;
+        
+        return parent[x] = find(parent[x]);
+    }
+
+    void Union(int x, int y)
+    {
+        x = find(x);
+        y = find(y);
+
+        if(x != y)
+        {
+            parent[max(x, y)] = min(x, y);
+        }
+    }
+
+    string smallestEquivalentString(string s1, string s2, string baseStr) 
+    {
+        fill(begin(parent), end(parent), -1);
+
+        for(int i = 0; i < s1.size(); i++)
+            Union(s1[i] - 'a', s2[i] - 'a');
+
+        for(int i = 0; i < baseStr.size(); i++)
+            baseStr[i] = find(baseStr[i] - 'a') + 'a';
+
+        return baseStr;
+    }
+};
+
+/*
+// Approach 2
 class Solution {
 public:
     // TC O(26 * n) SC O(26)
@@ -33,3 +73,5 @@ public:
         
     }
 };
+
+*/
