@@ -2,7 +2,7 @@
 
 // User function template for C++
 
-// TC O(4^(n*n))
+// TC O(4^(n*n)) SC O(n * n)
 class Solution{
     public:
     bool dfs(vector<vector<int>> &m, int row, int col, string path, vector<string>& allpaths, int& n)
