@@ -1,5 +1,26 @@
 // https://leetcode.com/problems/n-th-tribonacci-number/submissions/888201157/
 
+class Solution {
+public:
+    int tribonacci(int n) 
+    {
+        int first = 0, second = 1, third = 1, fourth = 1;
+
+        if(n <= 1)
+            return n;
+
+        for(int i = 3; i <= n; i++)
+        {
+            fourth = first + second + third;
+            first = second;
+            second = third;
+            third = fourth;
+        }
+
+        return fourth;
+    }
+};
+
 /*
 class Solution {
 public:
