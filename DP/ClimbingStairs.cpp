@@ -21,7 +21,6 @@ public:
             before2step = before1step;
             before1step = totalways;
         }
-        
         return totalways;
     }
 };
