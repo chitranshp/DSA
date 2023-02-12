@@ -57,3 +57,27 @@ int frogJump(int n, vector<int> &heights)
     vector<int> cost(n + 1, -1);
     return helper(heights, cost, n - 1);
 }
+
+/*
+To eliminate the recursion stack space we can use the Bottom up approach
+*/
+int frogJump(int n, vector<int> &heights)
+{
+    vector<int> cost(n + 1, -1);
+    cost[0] = 0;
+    //cost[1] = abs(heights[1] - heights[0]);
+
+    for(int i = 1; i < heights.size(); i++)
+    {
+        //cost[i] = min(cost[i - 1] + abs(heights[i] - heights[i - 1]), cost[i - 2] + abs(heights[i] - heights[i - 2]));
+        
+        int secondstep = INT_MAX;
+        int firststep = cost[i - 1] + abs(heights[i] - heights[i - 1]);
+        if(i > 1)
+            secondstep = cost[i - 2] + abs(heights[i] - heights[i - 2]);
+
+        cost[i] = min(firststep, secondstep);
+    }
+    
+    return cost[n - 1];
+}
