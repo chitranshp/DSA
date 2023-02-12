@@ -81,3 +81,27 @@ int frogJump(int n, vector<int> &heights)
     
     return cost[n - 1];
 }
+
+/* 
+If we look closely, we are only using the last 2 steps for each index and the rest are not needed. We can start from 0 and maintain the last 2 steps only to reduce the SC to O(1).
+*/
+
+int frogJump(int n, vector<int> &heights)
+{
+    int prev = 0;
+    int prev2, curri;
+
+    for(int i = 1; i < heights.size(); i++)
+    {
+        int secondstep = INT_MAX;
+        int firststep = prev + abs(heights[i] - heights[i - 1]);
+        if(i > 1)
+            secondstep = prev2 + abs(heights[i] - heights[i - 2]);
+        
+        curri = min(firststep, secondstep);
+        prev2 = prev;
+        prev = curri;
+    }
+    
+    return prev;
+}
