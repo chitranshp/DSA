@@ -61,3 +61,36 @@ class Solution {
         return helper(height, k, n - 1);
     }
 };
+
+/*
+  Tabulation approach - BottomUp DP
+  TC - O(N * K) 
+  SC - O(N)
+*/
+
+class Solution {
+  public:
+    int minimizeCost(vector<int>& height, int n, int k) 
+    {
+        int j, cost, mincost;
+        vector<int> dp(n + 1, -1);
+        dp[0] = 0;
+        
+        for(int i = 1; i < n; i++)
+        {
+            j = 1;
+            mincost = INT_MAX;
+            while(j <= k && i - j >= 0)
+            {
+                cost = dp[i - j] + abs(height[i - j] - height[i]);
+                mincost = min(cost, mincost);
+                j++;
+            }
+            
+            dp[i] = mincost;
+        }
+        
+        return dp[n - 1];
+    }
+};
+
