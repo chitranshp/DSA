@@ -40,7 +40,7 @@ public:
 	}
   
 	int findMaxSum(int *arr, int n)
-  {
+    {
 	    return helper(arr, n - 1, dp);
 	}
 };
@@ -73,7 +73,7 @@ public:
 	}
   
 	int findMaxSum(int *arr, int n) 
-  {
+    {
 	    vector<int> dp(n + 1, -1);
 	    return helper(arr, n - 1, dp);
 	}
@@ -87,10 +87,10 @@ TC - O(N) and SC - O(N)
 class Solution
 {
 public:	
-	int findMaxSum(int *arr, int n) 
+  int findMaxSum(int *arr, int n) 
   {
-	    vector<int> dp(n + 1, -1);
-	    dp[0] = arr[0];       //Max sum of non-adjacent element UNTILL 0th index is arr[0].
+	  vector<int> dp(n + 1, -1);
+	  dp[0] = arr[0];       //Max sum of non-adjacent element UNTILL 0th index is arr[0].
     
       for(int i = 1; i < n; i++)
       {
@@ -101,7 +101,39 @@ public:
         int notpick = dp[i - 1];
         
         dp[i] = max(pick, notpick);
-	    }
+	  }
     
       return dp[n - 1];
+  }
+};
+
+/*
+Space Optimal Approach - We can observe that for any index i, we only need previous 2 values of max sum of non-adjacent elements. Rest all values are not needed and we can discard it.
+TC - O(n) and SC - O(1)
+*/
+
+class Solution
+{
+public:	
+  int findMaxSum(int *arr, int n) 
+  {
+	  int prev = arr[0], prev2, curri;
+
+      for(int i = 1; i < n; i++)
+      {
+        int pick = arr[i];
+        if(i > 1)           // As when i = 1, dp[i - 2] will result in indexoutofbound error
+           pick += prev2;
+        
+        int notpick = prev;
+        
+        curri = max(pick, notpick);
+
+		//Setting up values for next iteration.
+		prev2 = prev;
+		prev = curri;
+	  }
+    
+      return prev;		//If we are returning curri instead of prev, we need to handle the case for which n = 1(where for loop won't be executed). We can declare initial value of curri as arr[0] to deal with that.
+  }
 };
