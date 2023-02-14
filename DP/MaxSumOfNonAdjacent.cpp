@@ -60,11 +60,11 @@ class Solution
 public:	
 	int helper(int *arr, int index, vector<int>& dp)
 	{
-	    if(index < 0)
-	        return 0;
+	   if(index < 0)
+	    return 0;
     
-      if(index == 0)
-          return arr[index];
+     if(index == 0)
+      return arr[index];
 	        
 	   if(dp[index] != -1)
 	    return dp[index];
@@ -73,9 +73,9 @@ public:
 	}
   
 	int findMaxSum(int *arr, int n) 
-    {
-	    vector<int> dp(n + 1, -1);
-	    return helper(arr, n - 1, dp);
+  {
+	  vector<int> dp(n + 1, -1);
+	  return helper(arr, n - 1, dp);
 	}
 };
 
@@ -92,15 +92,15 @@ public:
 	  vector<int> dp(n + 1, -1);
 	  dp[0] = arr[0];       //Max sum of non-adjacent element UNTILL 0th index is arr[0].
     
-      for(int i = 1; i < n; i++)
-      {
-        int pick = arr[i];
-        if(i > 1)           // As when i = 1, dp[i - 2] will result in indexoutofbound error
-           pick += dp[i - 2];
+    for(int i = 1; i < n; i++)
+    {
+      int pick = arr[i];
+      if(i > 1)           // As when i = 1, dp[i - 2] will result in indexoutofbound error
+        pick += dp[i - 2];
         
-        int notpick = dp[i - 1];
+      int notpick = dp[i - 1];
         
-        dp[i] = max(pick, notpick);
+      dp[i] = max(pick, notpick);
 	  }
     
       return dp[n - 1];
@@ -119,21 +119,21 @@ public:
   {
 	  int prev = arr[0], prev2, curri;
 
-      for(int i = 1; i < n; i++)
-      {
-        int pick = arr[i];
-        if(i > 1)           // As when i = 1, dp[i - 2] will result in indexoutofbound error
-           pick += prev2;
+    for(int i = 1; i < n; i++)
+    {
+      int pick = arr[i];
+      if(i > 1)           // As when i = 1, dp[i - 2] will result in indexoutofbound error
+          pick += prev2;
         
-        int notpick = prev;
+      int notpick = prev;
         
-        curri = max(pick, notpick);
+      curri = max(pick, notpick);
 
 		//Setting up values for next iteration.
 		prev2 = prev;
 		prev = curri;
 	  }
     
-      return prev;		//If we are returning curri instead of prev, we need to handle the case for which n = 1(where for loop won't be executed). We can declare initial value of curri as arr[0] to deal with that.
+  return prev;		//If we are returning curri instead of prev, we need to handle the case for which n = 1(where for loop won't be executed). We can declare initial value of curri as arr[0] to deal with that.
   }
 };
