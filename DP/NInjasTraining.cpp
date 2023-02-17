@@ -13,7 +13,7 @@ class Solution {
     {
         if(day <= -1)
         {
-            globalsum = max(currpoints, globalsum);
+            maxpoints = max(currpoints, maxpoints);
             return;
         }
             
@@ -22,7 +22,7 @@ class Solution {
             if(activity != lastactivity)
             {
                 currpoints += points[day][activity];
-                helper(points, day - 1, r, activity, currpoints, maxpoints);
+                helper(points, day - 1, activity, currpoints, maxpoints);
                 currpoints -= points[day][activity];
             }
         }
