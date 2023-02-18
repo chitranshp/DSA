@@ -72,3 +72,39 @@ class Solution {
         return helper(points, n - 1, 3);
     }
 };
+
+/*
+Memoization - TopDown DP
+*/
+
+class Solution {
+  public:
+    int helper(vector<vector<int>>& points, int day, int lastactivity, vector<vector<int>>& dp)
+    {
+        if(day < 0)
+            return 0;
+        
+        if(dp[day][lastactivity] != -1)
+            return dp[day][lastactivity];
+        
+        int maxpoints = INT_MIN;
+        for(int activity = 0; activity < points[0].size(); activity++)
+        {
+            if(activity != lastactivity)
+            {
+                int currpoints = points[day][activity] + helper(points, day - 1, activity, dp);
+                maxpoints = max(maxpoints, currpoints);
+            }
+        }
+        return dp[day][lastactivity] = maxpoints;
+    }
+    
+    int maximumPoints(vector<vector<int>>& points, int n) 
+    {
+        int sum = 0, globalsum = INT_MIN;
+        vector<vector<int>> dp(n, vector<int>(4, -1)) ;
+            
+        //lastactivity as 3 indicates any valid activity can be taken for present day.
+        return helper(points, n - 1, 3, dp);
+    }
+};
