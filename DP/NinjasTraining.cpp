@@ -75,6 +75,8 @@ class Solution {
 
 /*
 Memoization - TopDown DP
+TC - O(n * 4 * 3) SC - O(n) + O(n * 4)      
+There are N*4 states and for every state, we are running a for loop iterating three times.
 */
 
 class Solution {
@@ -108,3 +110,39 @@ class Solution {
         return helper(points, n - 1, 3, dp);
     }
 };
+
+/* 
+Tabulation - BottomUp DP
+TC - O((n * 4) * 3) SC - O(n * 4)
+
+Hint: f(0, 0) means we are at day 0 and the last activity was 0th. Therefore, we can perform task 1 and task2 only and will be taking maximum of both.
+*/
+*/
+int maximumPoints(vector<vector<int>>& points, int n) 
+{
+        int sum = 0, globalsum = INT_MIN;
+        int ans = INT_MIN;
+        vector<vector<int>> dp(n, vector<int>(4, -1)) ;
+            
+        dp[0][0] = max(points[0][1], points[0][2]);
+        dp[0][1] = max(points[0][0], points[0][2]);
+        dp[0][2] = max(points[0][0], points[0][1]);
+        dp[0][3] = max(points[0][0], max(points[0][1], points[0][2]));  //3rd index will collect maximum of all points by all valid activity combinations till that day 
+				
+				for(day = 1; day < n; day++)
+					for(last = 0; last < 4; last++)
+					{
+						dp[day][last] = 0;
+        		for(int activity = 0; activity < points[0].size(); activity++)
+        		{
+            	if(activity != last)
+            	{
+                int currpoints = points[day][activity] + dp[day - 1][activity];
+                dp[day][last] = max(dp[day][last], currpoints);
+           		}
+        		}
+					}
+		
+        return dp[n - 1][4];
+    }				
+          
