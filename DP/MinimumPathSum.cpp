@@ -2,6 +2,8 @@
 
 /*
 Memoization
+TC - O(n * m)
+SC - O(n * m) + O(n + m)
 */
 class Solution {
 public:
@@ -28,7 +30,11 @@ public:
     }
 };
 
-/* Tabulation - BottomUp DP */
+/* 
+Tabulation - BottomUp DP 
+TC - O(n * m)
+SC - O(n * m)
+*/
 
 class Solution {
 public:
@@ -59,7 +65,11 @@ public:
     }
 };
 
-/* SpaceOptimization */
+/* 
+SpaceOptimization 
+TC - O(n * m)
+SC - O(n) + O(n)
+*/
 
 class Solution {
 public:
@@ -94,7 +104,11 @@ public:
     }
 };
 
-/* FurtherSpaceOptimization */
+/*
+FurtherSpaceOptimization
+TC - O(n * m)
+SC - O(n)
+*/
 
 class Solution {
 public:
