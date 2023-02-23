@@ -4,20 +4,46 @@
 
 class Solution {
 public:
-    long int helper(vector<vector<int>> &arr, int r, int c)
+    int helper(vector<vector<int>> &triangle, int r, int c)
     {
-        if(r == arr.size() - 1)
-            return arr[r][c];
+        if(r == triangle.size() - 1)
+            return triangle[r][c];
 
-        if(r >= arr.size() || c >= arr[0].size())
+        /*
+        //This case is not necessary because for given r and c, c and c + 1 will always be withing array range(As size of each row is 1 more than it's previous one). And for row we have previous if condition which won't allow r to grow out of array bound.
+        if(r >= triangle.size() || c >= triangle[r].size())   //Size of each row is different
             return INT_MAX;
+        */
 
-        long int a = arr[r][c] + helper(arr, r + 1, c);
-        long int b = arr[r][c] + helper(arr, r + 1, c + 1);
-        return min(a, b);
+        int down = triangle[r][c] + helper(triangle, r + 1, c);
+        int diagonal = triangle[r][c] + helper(triangle, r + 1, c + 1);
+        return min(down, diagonal);
     }
     int minimumTotal(vector<vector<int>>& triangle) 
     {
         return helper(triangle, 0, 0);    
+    }
+};
+
+/* Memoization */
+
+class Solution {
+public:
+    int helper(vector<vector<int>> &triangle, int r, int c, vector<vector<int>> &dp)
+    {
+        if(r == triangle.size() - 1)
+            return triangle[r][c];
+
+        if(dp[r][c] != -1)
+            return dp[r][c];
+
+        int down = triangle[r][c] + helper(triangle, r + 1, c, dp);
+        int diagonal = triangle[r][c] + helper(triangle, r + 1, c + 1, dp);
+        return dp[r][c] = min(down, diagonal);
+    }
+    int minimumTotal(vector<vector<int>>& triangle) 
+    {
+        vector<vector<int>> dp(triangle.size(), vector<int> (triangle.size(), -1));
+        return helper(triangle, 0, 0, dp);    
     }
 };
