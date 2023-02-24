@@ -1,6 +1,10 @@
 // https://leetcode.com/problems/triangle/
 
-/* Recursion */
+/* Recursion 
+In first row there is 1 column, 2 in 2nd, 3 in 3rd and i in ith row.
+So in total there will be 1+2+3+....+n states = O(n^2)
+Total TC = O(2 ^ ( n ^ 2))
+*/
 
 class Solution {
 public:
