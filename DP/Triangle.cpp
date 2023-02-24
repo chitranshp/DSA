@@ -135,4 +135,22 @@ public:
 Further Space Optimization can also be done by using same input triangle to store the values instead of another DS
 */
 
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) 
+    {
+        int m = triangle.size(), n = triangle[m - 1].size();
 
+        for(int i = m - 2; i >= 0; i--)     
+        {
+            //For 0th row -> 0 column, 1st row -> 0, 1 column
+            for(int j = i; j >= 0; j--)
+            {
+                triangle[i][j] = min(triangle[i][j] + triangle[i + 1][j], triangle[i][j] + triangle[i + 1][j + 1]);
+            }
+        }
+
+        //If we calculated from 1st row to last one, we again would have to find the minimum among all columns in last row and return it.
+        return triangle[0][0];    
+    }
+};
