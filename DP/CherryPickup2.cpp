@@ -70,3 +70,59 @@ So, for us at each step there will be 3 * 3 = 9 path combination we have to expl
         return helper(grid, 0, 0, n - 1, dp);
     }
 };
+
+
+/* 
+Space Optimization - We are not using the whole table at a time. If we look closely, we are only using dp[r + 1] to update dp[r] at a time. Therefore, we will use 2 separate vectors to store dp[r] and dp[r + 1] each of size n * n.
+SC - O(m * n)
+TC - O(9 * m * n * n)
+*/
+
+    int cherryPickup(vector<vector<int>>& grid) 
+    {
+        int m = grid.size(), n = grid[0].size();
+        vector<vector<int>> front(n, vector<int> (n, 0)), curr(n, vector<int> (n, 0));
+
+        for(int c1 = 0; c1 < n; c1++)
+            for(int c2 = 0; c2 < n; c2++)
+            {
+                if(c1 == c2)
+                    front[c1][c2] = grid[m - 1][c1];
+                else
+                    front[c1][c2] = grid[m - 1][c1] + grid[m - 1][c2];
+            }
+                
+        for(int r = m - 2; r >= 0; r--)
+        {
+            for(int c1 = 0; c1 < n; c1++)
+            {
+                for(int c2 = 0; c2 < n; c2++)
+                {
+                    int maxi = -1e8, total = grid[r][c1];
+        
+                    if(c1 != c2)
+                        total += grid[r][c2];
+
+                    for(int dc1 = -1; dc1 <= 1; dc1++)
+                        for(int dc2 = -1; dc2 <= 1; dc2++)
+                        {
+                            int val = total;
+                            if(c1 + dc1 >= 0 && c1 + dc1 < n && c2 + dc2 >= 0 && c2 + dc2 < n)
+                                val = total + front[c1 + dc1][c2 + dc2];
+                            else
+                                val = -1e8;
+
+                            maxi = max(maxi, val);
+                        }
+                            
+                    curr[c1][c2] = maxi;
+                }
+            }
+
+            front = curr;
+        }
+
+        //This returns the number of chocolates when alice is at grid[0][0] and bob is at grid[0][n - 1]
+        return front[0][n - 1];
+    }
+};
