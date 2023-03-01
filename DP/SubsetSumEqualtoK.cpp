@@ -36,4 +36,8 @@ bool subsetSumToK(int n, int k, vector<int> &arr)
 }
 
 
-/* Tabulation*/
+/* 
+Tabulation
+TC - O(N * k)
+Sc - O(N * k)
+*/
