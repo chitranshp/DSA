@@ -71,7 +71,7 @@ int minSubsetSumDifference(vector<int>& arr, int n)
 
 	vector<vector<bool>> dp(n, vector<bool> (totalsum + 1, 0));
 
-	helper(arr, totalsum + 1, dp);
+	helper(arr, totalsum, dp);
 
 	int mindiff = 1e8;
 	for(int j = 0; j <= totalsum; j++)
@@ -122,7 +122,7 @@ int minSubsetSumDifference(vector<int>& arr, int n)
 	vector<vector<bool>> dp(n, vector<bool> (totalsum + 1, 0));
 	vector<bool> prev(totalsum + 1, false);
 
-	helper(arr, totalsum + 1, prev);
+	helper(arr, totalsum, prev);
 
 	int mindiff = 1e8;
 	for(int j = 0; j <= totalsum; j++)
