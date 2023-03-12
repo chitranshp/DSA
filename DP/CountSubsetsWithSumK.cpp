@@ -63,6 +63,8 @@ int findWays(vector<int> &arr, int sum)
     //Extra base case to handle the scenario when first element of array is 0.  
     if(arr[0] == 0)
         dp[0][0] = 2;
+    else
+        dp[0][0] = 1;
             
     for(int i = 1; i < n; i++)
     {
@@ -104,6 +106,8 @@ int findWays(vector<int> &arr, int sum)
     //Extra base case to handle the scenario when first element of array is 0.  
     if(arr[0] == 0)
         prev[0] = 2;
+    else
+        prev[0] = 1;
             
     for(int i = 1; i < n; i++)
     {
@@ -121,6 +125,46 @@ int findWays(vector<int> &arr, int sum)
         }
 
         prev = curr;
+    }
+ 
+    return prev[sum];
+}
+
+/*
+Further Space optimization - We can see that for each cell we are accessing directly above cell and one cell from it's left in current row.
+Here, 'j - nums[i]' will always be a cell towards left of current cell.
+So, if we start filling table from right to left, we can use single row data structure and just overwrite it's values.
+
+SC - O(S)
+*/
+int findWays(vector<int> &arr, int sum)
+{
+    int mod = 1e9 + 7;
+    vector<int> prev(k + 1, 0);
+        
+        
+    if(arr[0] <= sum)
+        prev[arr[0]] = 1;
+
+    //Extra base case to handle the scenario when first element of array is 0.  
+    if(arr[0] == 0)
+        prev[0] = 2;
+    else    
+        prev[0] = 1;
+            
+    for(int i = 1; i < n; i++)
+    {
+        /* Important */
+        //Here, j is running from 0 to sum (BOTH INCLUSIVE). This is to handle the cases where 0 is present at any index other than 0.
+        for(int j = sum; j >= 0; j--)
+        {
+            int notpick = prev[j] % mod;
+            int pick = 0;
+            if(arr[i] <= j)
+                pick = prev[j - arr[i]] % mod;
+                    
+            prev[j] = (pick + notpick) % mod;
+        }
     }
  
     return prev[sum];
