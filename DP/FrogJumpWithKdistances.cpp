@@ -36,29 +36,32 @@ class Solution {
   TC - O(N * k)
   SC - O(N) + O(N) approximately equal to O(N)
 */ 
-
 class Solution {
   public:
-    int helper(vector<int>& h, int k, int index)
+    int helper(vector<int>& h, int k, int index, vector<int> &dp)
     {
         if(index == 0)
             return 0;
 
+        if(dp[index] != -1)
+            return dp[index];
+            
         int total = INT_MAX;
         for(int i = 1; i <= k; i++)
         {
             if(index - i >= 0)
             {
-                int val = helper(h, k, index - i) + abs(h[index] - h[index - i]);
+                int val = helper(h, k, index - i, dp) + abs(h[index] - h[index - i]);
                 total = min(val, total);   
             }
         }
         
-        return total;
+        return dp[index] = total;
     }
     int minimizeCost(vector<int>& height, int n, int k) 
     {
-        return helper(height, k, n - 1);
+        vector<int> dp(n + 1, -1);
+        return helper(height, k, n - 1, dp);
     }
 };
 
