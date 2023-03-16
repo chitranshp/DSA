@@ -57,6 +57,7 @@ public:
         else
             return dp[m][n] = max(helper(text1, text2, m - 1, n, dp), helper(text1, text2, m, n - 1, dp));
     }
+
     int longestCommonSubsequence(string text1, string text2) 
     {   
         vector<vector<int>> dp(string1.size(), vector<int> (string2.size(), -1));
@@ -64,7 +65,7 @@ public:
     }
 };
 
-/*
+/*0
 Tabulation - Our base case was if(i < 0 || j < 0) which can also be written as i == -1 || j == -1.
 To include case where i or j are -1, we will shift the index for dp(table) by one towards right. This means that each index 'i' represents i - 1 character of text1 and text2 in 0 - based indexing.
 
@@ -80,7 +81,7 @@ public:
     int longestCommonSubsequence(string text1, string text2) 
     {   
         int m = text1.size(), n = text2.size();
-        vector<vector<int>> dp(m, vector<int> (n, -1));
+        vector<vector<int>> dp(m + 1, vector<int> (n + 1, -1));
 
         for(int i = 0; i <= m; i++)
             dp[i][0] = 0;
