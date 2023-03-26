@@ -1,4 +1,4 @@
-//
+// https://leetcode.com/problems/regular-expression-matching/
 
 /*
 Recursion
@@ -19,7 +19,7 @@ public:
         if(i < 0 && s2[j] == '*')
             return helper(s1, s2, i, j - 2);    //If j - 2 == -1, then first base condition will trigger and written true. If j - 2>= 0 and s2[j - 2] != '*' next base condition will return false.
         
-        if(i < 0 || j < 0)  //If one of them is empty and other one has still some elements left
+        if(i < 0 || j < 0)  //If one of them is still empty at this point and other one has still some elements left
             return false;
 
         if(s1[i] == s2[j] || s2[j] == '.')
