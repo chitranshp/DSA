@@ -148,3 +148,41 @@ public:
         return curr[0];
     }
 };
+
+
+/*
+Approach 2 - We will take a dp vector of size 'n' inititialized with 1. For each element, ignoring all the previous elements LIS will be 1 ie the subsequence will be element itself.
+dp[i] will represent the LIS that ends at index 'i'(including i).
+
+So, For an index 'i' we will go through all the index from 0 to 'i - 1'(prevind). And if nums[prevind] < nums[i], we will update dp[i] value as max(dp[i], 1 + dp[prevind]). 
+Here 1 is added to the dp[prevind] to include the 'i' the element in LIS.
+
+At the end, we will return the maximum element of dp as the length of LIS.
+TC - O(N ^ 2)
+sc - O(N)
+*/
+
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) 
+    {
+        int n = nums.size();
+        vector<int> dp(n, 1);       //All initialized with 1.
+        int maxi = 0;
+
+        for(int index = 0; index < n; index++)
+        {
+            for(int prevind = 0; prevind <= index - 1; prevind++)
+            {
+                if(nums[index] > nums[prevind])
+                    dp[index] = max(dp[index], 1 + dp[prevind]);
+
+                maxi = max(maxi, dp[index]);
+            }
+        }
+        
+        return maxi;
+    }
+};
+
+
