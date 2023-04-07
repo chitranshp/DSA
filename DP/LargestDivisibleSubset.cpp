@@ -16,7 +16,7 @@ i.e.    arr[curr] % arr[prev] == 0 only then we will update the dp[curr] provide
 
 Note: For this question, it is fine to return any of the subarray, if multiple such subarray exists.
 
-TC - O(nlogn) + O(n ^ 2)
+TC - O(nlogn) + O(n ^ 2) + O(n) for tracking and printing in worst case
 SC - O(n)
 */
 
