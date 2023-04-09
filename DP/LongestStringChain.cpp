@@ -51,7 +51,7 @@ public:
         int maxi = 1, n = words.size();
 
         //We only need the length of chain. So, no need of hash and temp vector.
-        vector<int> dp(n, 1);
+        vector<int> dp(n, 1);       //Initializing with 1 which is the base case. Every string on it's own is a part of 1 membered chain.
         //dp[0] represents the length of longest string chain untill index 0.
 
         //Sorting because our compare function is compairing strings using length property of the string chains ie successive string differing by 1 character(2nd string has one extra character)
