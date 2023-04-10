@@ -1,4 +1,53 @@
 // https://leetcode.com/problems/number-of-longest-increasing-subsequence/description/
+//  TODO space optimized approach having O(1) SC
+
+
+/*
+Brute force - Check each combination 
+TC - O(n * n * n)
+SC - O(n)
+*/
+
+class Solution {
+public:
+    int use = 0;
+    int isValid(string& s, int first, int last)
+    {
+        stack<char> st;
+        for(int i = first; i <= last; i++)
+        {
+            if(s[i] == '(')
+                st.push(s[i]);
+            else if(!st.empty())
+            {
+                if(s[i] == ')' && st.top() == '(')
+                    st.pop();
+                else
+                    return 0;
+            }
+            else
+                return 0;
+        }
+
+        return st.empty();
+    }
+
+    int longestValidParentheses(string s) {
+        vector<vector<int>> dp(s.size(), vector<int> (s.size(), -1));
+        int maxi = 0;
+        for(int i = 0; i < s.size(); i++)
+        {
+            for(int j = i; j < s.size(); j++)
+            {
+                if(isValid(s, i, j))
+                    maxi = max(maxi, j - i + 1);
+
+            }
+        }
+
+        return maxi;
+    }
+};
 
 /*
                          0  1  2  3  4  5  6  7  8   9  
