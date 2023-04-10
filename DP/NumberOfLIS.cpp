@@ -27,6 +27,11 @@
 
                 Therefore for this case, we update cnt[i] = cnt[i] + cnt[j]
                                                             {1, 5, 6} + {1, 4, 6} = {{1, 5, 6}, {1, 4, 6}}
+                                                   cnt[5] = 2 now till j = 2
+
+                For j = 3 and i = 5, one new subseq of length dp[5] = 3( dp[5] = 1 + dp[3]) {1, 3, 6}
+                    cnt[5] = cnt[5] + cnt[3] = 2 + 1 = 3
+                            {1, 5, 6}, {1, 4, 6} + {1, 3, 6} = 3
 
                 Simultanously, while calculating LIS, we will keep track of longest length.
 
@@ -57,10 +62,10 @@ public:
                 if(nums[i] > nums[j] && dp[i] < 1 + dp[j])
                 {
                     dp[i] = 1 + dp[j];
-                    cnt[i] = cnt[j];
+                    cnt[i] = cnt[j];        //Inherit the LIS count for dp[j] as we will append nums[i] to the end of all subseq covered under dp[j]. No new subseq will be created, just the length of old LIS at dp[j] will be increased by 1 (due to appending of nums[i]). But their count will remain same.
                 }
                 else if(nums[i] > nums[j] && dp[i] == 1 + dp[j])
-                    cnt[i] = cnt[i] + cnt[j];
+                    cnt[i] = cnt[i] + cnt[j];   //One more set of subsequences found with same length as LIS currently of dp[i]
             }
 
             if(dp[i] >= maxi)       //To track the length of longest increasing subsequence.
