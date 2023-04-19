@@ -96,3 +96,38 @@ public:
         return helper(N, arr, 1, N - 1, dp);
     }
 };
+
+/*
+TC - O(n * n * n)
+SC - O(n * n)
+*/
+
+class Solution{
+public:
+    int matrixMultiplication(int N, int arr[])
+    {
+        //Base case will be handled here dp[i][i] = 0 where 0 <= i < n
+        vector<vector<int>> dp(N, vector<int> (N, 0));
+        int steps = 0, mini = INT_MAX;
+        
+        for(int i = N - 1; i >= 1; i--)
+        {
+            // i < j which means j > i or j can have values ranging from i + 1 till end(N - 1)
+            for(int j = i + 1; j < N; j++)
+            {
+                int val = 0;
+                int mini = INT_MAX;
+                
+                for(int k = i; k < j; k++)
+                {
+                    val = dp[i][k] + dp[k + 1][j] + arr[i - 1] * arr[k] * arr[j];
+                    mini = min(val, mini);
+                }
+                
+                dp[i][j] = mini;
+            }
+        }
+        // From 1 to n - 1. 
+        return dp[1][N - 1];
+    }
+};
