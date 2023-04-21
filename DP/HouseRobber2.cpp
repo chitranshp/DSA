@@ -44,3 +44,45 @@ long long int houseRobber(vector<int>& valueInHouse)
         
         return max(helper(withfirst, n), helper(withlast, n));
 }
+
+/*
+Approach 2:
+TC - O(n) + O(n) 
+SC - O(1)
+*/
+
+class Solution {
+public:
+    int helper(vector<int>& nums, int l, int r)
+    {
+        int prev1 = nums[l], prev2 = 0, curr = 0;
+
+        //Starting from l + 1, as for index 'l' we have already considered in prev1 = nums[l]
+        for(int i = l + 1; i <= r; i++)
+        {
+            int pick = 0, notpick = 0;
+
+            notpick = prev1;
+
+            if(i > 1)
+                pick = prev2 + nums[i];
+
+            curr = max(pick, notpick);
+
+            prev2 = prev1;
+            prev1 = curr;
+        }
+
+        return prev1;
+    }
+
+    int rob(vector<int>& nums) 
+    {
+        int n = nums.size();
+
+        if(n == 1)
+            return nums[0];
+        
+        return max(helper(nums, 0, n - 2), helper(nums, 1, n - 1));
+    }
+};
