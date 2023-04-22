@@ -60,8 +60,6 @@
         1
 */
 
-
-
 class Solution{
 public:
     int helper(int n, int arr[], int i, int j, vector<vector<int>> &dp)
@@ -112,7 +110,10 @@ public:
         
         for(int i = N - 1; i >= 1; i--)
         {
-            // i < j which means j > i or j can have values ranging from i + 1 till end(N - 1)
+            // (k < j and k = i to j therefore i < j)i < j which means j > i or j can have values ranging from i + 1 till end(N - 1)
+            // i will always left of j unless matrix formed will be invalid
+            // In recursion i goes from 0 to 1 and j goes from N - 1 to lower bound(2).
+            // Therefore in bottom up i will go from N - 1 to 1 and j will go in reverse
             for(int j = i + 1; j < N; j++)
             {
                 int val = 0;
