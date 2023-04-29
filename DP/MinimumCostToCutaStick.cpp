@@ -23,6 +23,12 @@ public:
         int mincost = INT_MAX;
         for(int index = i; index <= j; index++)
         {
+            //For cuts[1 - 1] = cuts[0] = 0 and cuts[cuts.size() - 2 + 1] = n, On subtracting they give n - 0 = n which is the length of stick.
+            // For each value of i and j, cuts[j + 1] - cuts[i - 1] will give the length of stick.
+            // We will make a cut at length 'index' and add the length of whole stick and then add the cost for newly created 2 sticks.
+            // More cuts for newly created sticks can be performed at [i ... index - 1] and [index + 1 ..... j]
+            // For 'index' cut has already been accounted for and no further new cuts can be performed at the same length.
+            // i - 1 will give the index of starting point of left stick and j + 1(index - 1 + 1 = index) will give the ending of left stick.
             int val = cuts[j + 1] - cuts[i - 1] + helper(cuts, i, index - 1, dp) + helper(cuts, index + 1, j, dp);
             mincost = min(val, mincost);
         }
@@ -32,12 +38,17 @@ public:
 
     int minCost(int n, vector<int>& cuts) 
     {
+        int cutsLength = cuts.size();
         vector<vector<int>> dp(cuts.size() + 2, vector<int> (cuts.size() + 2, -1));
         cuts.insert(cuts.begin(), 0);
         cuts.push_back(n);
+
+        //Without sorting, the cuts cannot be solved independently. With sorting, we are guarranted that whatever point we are making the cut, the information on the markings of the left portion will always be present on the left side of the CUTS array partition. Similarly on the right side.
         sort(cuts.begin(), cuts.end());
 
-        return helper(cuts, 1, cuts.size() - 2, dp);
+        // i = 1 is the index for first(smallest) valid cut and j = cuts.size() - 2 is the index for last(largest) valid cut.
+        // cuts[0] and element at cuts.size() - 2 are placeholders for ease of calculation.
+        return helper(cuts, 1, cuts.size() - 2, dp);    //Here we are passing initial size of the cuts for index j.
     }
 };
 
