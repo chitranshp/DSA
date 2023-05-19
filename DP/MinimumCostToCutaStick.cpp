@@ -47,7 +47,7 @@ public:
         sort(cuts.begin(), cuts.end());
 
         // i = 1 is the index for first(smallest) valid cut and j = cuts.size() - 2 is the index for last(largest) valid cut.
-        // cuts[0] and element at cuts.size() - 2 are placeholders for ease of calculation.
+        // cuts[0] and element at cuts.size() - 1 are placeholders for ease of calculation.
         return helper(cuts, 1, cuts.size() - 2, dp);    //Here we are passing initial size of the cuts for index j.
     }
 };
@@ -69,7 +69,7 @@ public:
 
         for(int i = cuts.size() - 2; i >= 1; i--)
         {
-            for(int j = 1; j <= cuts.size() - 2; j++)
+            for(int j = 1; j <= cuts.size() - 2; j++)   //Another optimization can be made with initializing j with i instead of 1 as for all i > j, we have already handled it separately as part of vector initialization
             {
                 if(i > j)
                     continue;       //dp[i][j] = 0 covered in initialization
