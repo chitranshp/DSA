@@ -7,6 +7,8 @@ To generate all possible partitions, we have no other option but to use recursio
 We will use a similar approach i.e. DFS, but instead of generating all partitions we will count the number of ways this is possible.
 No need to maintain an extra subset to keep track of all partitions.
 
+Note: This approach is also called FRONT PARTITIONING as we are starting partitioning from front.
+
 TC - O(2 ^ n)
 SC - O(n)
 */
