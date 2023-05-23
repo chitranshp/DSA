@@ -120,7 +120,52 @@ public:
 };
 
 /*
-TODO
-Optimized approach2:
-
+Optimized approach2: This approach is a single pass approach instead of a two-pass approach. When we traverse the array by finding the next greater element, we found that some elements were inserted into the stack which signifies that after them the smallest element is themselves
+The formula will be changed slightly instead of adding 1, we will be decrementing 1.
+As we are directly using the indexes of element without incrementing or decrementing that we were doing while storing the elements in LSH and RSH vectors.
+TC - O(n)
+SC - O(1) We won't be using 2 vectors of O(n) to store leftsmall and right small elements for each index.
 */
+
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) 
+    {
+        int n = heights.size(), maxarea = 0;
+        stack<int> st;
+
+        // We will calculate both left smaller and right smaller element in one pass. For any new element we will push it into stack and before that, we will check whether that new element is right smaller element for any previous element that we have encountered. Previous elements will be in stack. The stack will be in ascending order(from bottom to top) and work in a same way as in case of left smaller element.
+        for(int i = 0; i <= n; i++)
+        {
+            // If heights[st.top()] >= height[i], this means that for heights[st.top()] , the ith element of heights[i] is the first smaller element towards it's right.
+            // We will store heights[st.top()] as height and pop it from stack as we don't need it anymore.
+            // If after popping no element if left on stack, this means that there is no element on left of our popped element which is smaller than it. This means that rectangle will stretch from 0 till height.
+            // We will calculate area for each popped element from stack separately and compare it with maxarea.
+
+            // If heights[st.top()] < heights[i], this means that for element pointed by st.top() heights[i] is not the next smaller element on right. We will push 'i' on stack and keep searching.
+            // Note: The loop will go for one more iteration than n as last element also needs to checked. For last element we don't need to check for next smaller but we will handle it separately in one extra iteration. The last element will be pushed on n - 1 iteration but area evaluation will be done on next loop.
+            // (i == n || heights[st.top()] >= heights[i])) When i == n, this expression will short circuit and 2nd part won't be evaluated as first is already found to be true.
+
+            while(!st.empty() && (i == n || heights[st.top()] >= heights[i]))
+            {
+                // h = heights[st.top()] -> height of bar for which area is being calculated
+                // Next element on stack after it is popped will be it's left smaller element.
+                // i th element will be the right smaller element for h.
+                int h = heights[st.top()];
+                st.pop();
+
+                int w;
+                if(st.empty())  
+                    w = i;     // No left small bar exists. It's width is from 0 till i - 1 which is 0 till 5, therefore total width will be i - 1 + 1 = i. 'i' th bar is not part of that rectangle, as it is smaller than that in height.
+                else           // Both i and st.top() are not part of rectangle under consideration. They signify right smaller and left smaller element respectively. 
+                    w = i - st.top() - 1; // For h = 5 and i = 4(2), we will have st.top() = 1 (1), w = 4 - 1 = 3 - 1 = 2 which is the actual width.
+
+                maxarea = max(maxarea, h * w);
+            }
+
+            st.push(i);
+        }
+
+        return maxarea;
+    }
+};
