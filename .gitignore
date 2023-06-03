@@ -1,3 +1,4 @@
 # Ignore the configuration file for vscode
 .vscode
 Binary Search/
+tcs/*
