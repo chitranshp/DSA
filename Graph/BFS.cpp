@@ -6,6 +6,23 @@ TC - O(V + E) (If it was undirected, then O(V + 2E))
 SC - O(3V) As O(V) for queue, vector and visited array. If we include input adj list also then O(V + E)
 */
 
+/*
+We can use this alorithm to print the shortest-path 
+    The following procedure prints out the vertices on a shortest path from s to v,
+    assuming that BFS has already computed a breadth-first tree:
+
+    PRINT-PATH(G, s, v)
+    1 if v == s
+    2   print s
+    3 elseif v:parent == NIL
+    4   print “no path from” s “to” v “exists”
+    5 else PRINT-PATH(G, s, v.parent)
+    6   print v
+
+    This procedure runs in time LINEAR TIME in the number of vertices in the path printed,
+    since each recursive call is for a path one vertex shorter
+*/
+
 class Solution {
   public:
     // Function to return Breadth First Traversal of given graph.
@@ -49,6 +66,8 @@ class Solution {
     {
         // 0 -> Not visited(white) 1->seen but not visited(grey) 2->seen and visited(black)
         int vis[V] = {0};
+
+        // We can also add a flag value say infinity and initialize the parent with it. And for any node, if after the completion of bfs parent[node] is equal to inf that means that node is not reachable from source
         int parent[V] = {-1};
         int level[V] = {0};     //It will indicate the length of shortest path to a node v from source node.
                                 // For source node level will be 0.
@@ -59,7 +78,7 @@ class Solution {
         int source = 0;
         q.push(source);
         
-        parent[source] = -1;
+        parent[source] = 0;
         level[source] = 0;
         vis[source] = 1;
         
