@@ -37,7 +37,7 @@ public:
 
         // We need the minimum number of minutes it will take to rot all reachable FRESH oranges. So, we need a kind of shortest path and we can rot oranges level by level i.e. First, oranges that are 1 unit away will rot then for 2 unit and so on.
         // For this, we can use BFS as it goes level by level and ends up with shortest path.
-        // BFS will always give the shortest time to travel.
+        // BFS will always give the shortest time to travel. (If we have used DFS, we will have to add a separate logic to track the minimum. With BFS, we are guarranteed to find the minimum)
         while(!rotten.empty())
         {
             int r = rotten.front().first.first, c = rotten.front().first.second;
