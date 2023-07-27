@@ -98,3 +98,54 @@ class Solution {
         return unqIslands.size();
     }
 };
+
+
+// Approach 2 using set<vector<pair<int, int>>>
+
+// User function Template for C++
+
+class Solution {
+  public:
+    void dfs(vector<vector<int>> &grid, int r, int c, int row0, int col0, vector<vector<int>> &vis, vector<pair<int, int>> &res)
+    {
+        vis[r][c] = 1;
+        res.push_back({r - row0, c - col0});
+        
+        int m = grid.size(), n = grid[0].size();
+        int offsets[] = {0, 1, 0, -1, 0};
+        
+        for(int k = 0; k < 4; k++)
+        {
+            int nr = r + offsets[k], nc = c + offsets[k + 1];
+            if(nr >= 0 && nr < m && nc >= 0 && nc < n && vis[nr][nc] == 0 && grid[nr][nc] == 1)
+            {
+                dfs(grid, nr, nc, row0, col0, vis, res);
+            }
+        }
+    }
+    
+    int countDistinctIslands(vector<vector<int>>& grid) 
+    {
+        int m = grid.size(), n = grid[0].size();
+        set<vector<pair<int, int>>> unqIslands;
+        vector<vector<int>> vis(m, vector<int>(n, 0));
+        
+        for(int i = 0; i < m; i++)
+        {
+            for(int j = 0; j < n; j++)
+            {
+                if(grid[i][j] == 1 && vis[i][j] == 0)
+                {
+                    vector<pair<int, int>> vec;
+                    dfs(grid, i, j, i, j, vis, vec);
+                    
+                    if(unqIslands.count(vec) == 0)
+                        unqIslands.insert(vec);     // In case of duplicate islands, count will remain same.
+                }
+                
+            }
+        }
+        
+        return unqIslands.size();
+    }
+};
