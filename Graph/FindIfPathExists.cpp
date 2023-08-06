@@ -42,3 +42,41 @@ public:
         return false;
     }
 };
+
+// Iterative BFS
+
+class Solution {
+public:
+    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) 
+    {   
+        if(n == 0)
+            return true;
+
+        queue<int> todo;
+        vector<bool> visited(n, false);
+        vector<vector<int>> graph(n);
+
+        for(int i = 0; i < edges.size(); i++)
+        {
+            graph[edges[i][0]].emplace_back(edges[i][1]);
+            graph[edges[i][1]].emplace_back(edges[i][0]);
+        }
+
+        todo.push(source);
+        while(!todo.empty())
+        {
+            int node = todo.front();
+            todo.pop();
+            visited[node] = true;
+
+            if(node == destination)
+                return true;
+
+            for(int i = 0; i < graph[node].size(); i++)
+                if(visited[graph[node][i]] == false)
+                    todo.push(graph[node][i]);
+        }
+
+        return false;
+    }
+};
