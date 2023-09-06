@@ -47,7 +47,7 @@ public:
 
                 // Cell must be unvisited and will be containing 1 then push it into queue and increase the number of steps by 1. 
                 // Initially q will contain all 0's. From them, if we are reaching any cell with 1 that means from 1 we can reach 0 in step + 1.
-                if(nr >= 0 && nr < m && nc >= 0 && nc < n && vis[nr][nc] == 0)
+                if(nr >= 0 && nr < m && nc >= 0 && nc < n && vis[nr][nc] == 0)      // For all cell with 0's, vis will be already set to 1.
                 {
                     vis[nr][nc] = 1;
                     q.push(make_pair(make_pair(nr, nc), step + 1));
