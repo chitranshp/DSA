@@ -31,7 +31,7 @@ public:
             }
         }
 
-        // If for all v adjacent to u, none of them are part of a cycle or leading into a cycle
+        // If FOR ALL v adjacent to u, none of them are part of a cycle or leading into a cycle
         // Reset pathvis[u] as 0. This vertex is safe node as it is not leading to a loop or part of it.
         pathvis[u] = 0;
         return false;
