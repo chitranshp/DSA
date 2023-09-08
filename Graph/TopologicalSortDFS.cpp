@@ -44,3 +44,64 @@ class Solution
 	    return arr;
 	}
 };
+
+/*
+DFS - Cycle Detection in DAG + Topological sort using DFS
+
+TC - O(V + E) + O(V)
+SC - O(3V) + O(V + E)
+*/
+
+class Solution {
+public:
+    vector<vector<int>> buildGraph(int &nC, vector<vector<int>>& prerequisites)
+    {
+        vector<vector<int>> graph(nC);
+        for(auto &coursePair: prerequisites)
+            graph[coursePair[1]].push_back(coursePair[0]);
+
+        return graph;
+    }
+
+    bool dfs(int &u, vector<vector<int>> &graph, vector<int> &vis, stack<int> &courseStack)
+    {
+        vis[u] = 2;
+        
+        for(int v: graph[u])
+        {
+            if(vis[v] == 0)
+            {
+                if(dfs(v, graph, vis, courseStack) == false)
+                    return false;
+            }
+            else if(vis[v] == 2)
+                return false;
+        }
+
+        vis[u] = 1;
+        courseStack.push(u);
+        return true;
+    }
+
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) 
+    {
+        vector<vector<int>> graph;
+        vector<int> vis(numCourses, 0), courseSeq;
+        stack<int> st;
+
+        graph = buildGraph(numCourses, prerequisites);
+
+        for(int i = 0; i < numCourses; i++)
+            if(vis[i] == 0)
+                if(dfs(i, graph, vis, st) == false)
+                    return {};
+
+        while(!st.empty())
+        {
+            courseSeq.push_back(st.top());
+            st.pop();
+        }
+
+        return courseSeq;
+    }
+};
