@@ -1,4 +1,4 @@
-// https://www.youtube.com/watch?v=73sneFXuTEg&list=PLgUwDviBIf0oE3gA41TKO2H5bHpPd7fzn&index=22
+// https://practice.geeksforgeeks.org/problems/topological-sort/1
 
 /*
 Topological sort is a linear ordering of the vertices (nodes) in a directed acyclic graph (DAG) such that for every directed edge (u, v), vertex u comes before vertex v in the ordering.

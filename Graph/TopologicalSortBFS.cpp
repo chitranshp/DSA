@@ -1,4 +1,4 @@
-// https://www.youtube.com/watch?v=73sneFXuTEg&list=PLgUwDviBIf0oE3gA41TKO2H5bHpPd7fzn&index=22
+// https://practice.geeksforgeeks.org/problems/topological-sort/1
 
 /* 
     Kahn's algorithm 
