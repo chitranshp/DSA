@@ -21,7 +21,7 @@ class Solution
 	            dfs(v, adj, vis, st);
 	    }
 	    
-	    st.push(u);         // If there are no unexplored adjacent nodes left, return and before returning push the current node to stack.
+	    st.push(u);         // If there are no unexplored adjacent nodes left, return and BEFORE returning push the current node to stack.
 	    return;
 	}
 	//Function to return list containing vertices in Topological order. 

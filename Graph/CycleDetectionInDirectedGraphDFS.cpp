@@ -21,6 +21,7 @@ Note: While backtracking, if no loop is detected, we should be setting it's valu
 And since, it's directed graph, we don't need to validate that the already visited node is not the parent of current node.
 
 Note: Instead of two arrays, we can use one single vis array where 0 indicates not visited, 1 indicates visited but not on same path and 2 indicates visited and on same path.
+    2. Instead of pathVis, inStack vector name will be better as those nodes indicate that they were visited in the current recursion stack.
 
 TC - O(V + E)
 SC - O(2V) + O(V) Vis + pathVis + Recursion stack space.
