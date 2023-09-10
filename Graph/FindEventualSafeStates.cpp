@@ -57,3 +57,53 @@ public:
         return safenodes;
     }
 };
+
+/*
+Approach2: Topological Sort(BFS)
+We are looking for safe states i.e. terminal nodes and those nodes through which we can only reach terminal nodes. Terminal nodes have a outdegree of 0.
+So, basically we are looking for nodes having outdegree 0 and other nodes which are connected to these nodes as they may or may not be safe states. But nodes having outdegree 0 are guarranteed to be safe state.
+
+So, we will reverse every edge in the graph. This will make each node having outdegree 0 to a node having indegree 0. And then, we will use these nodes as starting point for our topological sort which will in turn give us all the nodes which can be reached from them without going through a cycle. And, any nodes which are part of a cycle or leading to a cylce will be skipped as they will still have indegree > 0.
+
+TC - O(V+E)+O(V + E) + O(2V) + O(VlogV)
+SC - O(3V) + O(V + E)
+*/
+
+class Solution {
+public:
+    vector<int> eventualSafeNodes(vector<vector<int>>& graph) 
+    {
+        int n = graph.size();
+        vector<vector<int>> revGraph(n);
+        queue<int> q;
+        vector<int> safeNodes, indegree(n, 0);
+
+        for(int i = 0; i < graph.size(); i++)
+            for(int &it: graph[i])
+                revGraph[it].push_back(i);
+
+        for(int i = 0; i < n; i++)
+            for(int &it: revGraph[i])
+                indegree[it]++;
+
+        for(int i = 0; i < n; i++)
+            if(indegree[i] == 0)
+                q.push(i);
+
+        while(!q.empty())
+        {
+            int node = q.front();
+            q.pop();
+            safeNodes.push_back(node);
+
+            for(int &it: revGraph[node])
+            {
+                if(--indegree[it] == 0)
+                    q.push(it);
+            }
+        }
+
+        sort(safeNodes.begin(), safeNodes.end());
+        return safeNodes;
+    }
+};
