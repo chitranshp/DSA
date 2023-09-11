@@ -11,7 +11,7 @@
     3. Based on order recieved by topological sort, start relaxing a vertex and it's immediate adjacent nodes,
        untill all vertices are exhausted. (For every node that comes out of the stack which contains our topo sort, we can traverse for all its adjacent nodes, and relax them. )
        
-    TC - O(V + E) + O(V + E)
+    TC - O(E) for building adjacency list + O(V + E)
     SC - O(V + E) for building graph + O(2V)
 */
 
