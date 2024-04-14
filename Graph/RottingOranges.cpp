@@ -25,7 +25,6 @@ public:
             {
                 if(grid[i][j] == 2)
                 {
-                    vis[i][j] = 2;
                     rotten.push(make_pair(make_pair(i, j), 0));     // time is 0 as it was already rotten at beginning
                     vis[i][j] = 2;          //Mark it as already rotten in visited array. So, that there is no chance of revisiting
                 }   
