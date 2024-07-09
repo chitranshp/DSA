@@ -10,6 +10,13 @@
     2. Update distance[source] = 0 and keep infinity for rest.
     3. Based on order recieved by topological sort, start relaxing a vertex and it's immediate adjacent nodes,
        untill all vertices are exhausted. (For every node that comes out of the stack which contains our topo sort, we can traverse for all its adjacent nodes, and relax them. )
+
+       Note: If the top element of topological sort order is not our source, we will pop untill we reach source in sort order. From source, we will start relaxation of edges.
+       In that distance of those will be infinity as they must be unreachable from source.
+       This is because as per the conditions of topological sort if a vertex u appears before v it means that there is no path between v and u. If that exists it violates
+       the conditions of topological sort. Also, this is a DAG.
+       Topological sort or topological ordering of a directed graph is a linear ordering of its vertices such that for every directed edge (u,v) from vertex u to vertex v, 
+       u comes before v in the ordering.
        
     TC - O(E) for building adjacency list + O(V + E)
     SC - O(V + E) for building graph + O(2V)
@@ -81,7 +88,7 @@ class Solution {
             }
         }
         
-        for(int i = 0; i < N; i++)
+        for(int i = 0; i < N; i++)            // unreachable from source
             if(dist[i] >= 1e9)
                 dist[i] = -1;
         
