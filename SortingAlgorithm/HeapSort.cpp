@@ -10,12 +10,12 @@ void heapify(int arr[], int n, int i)
     int r = 2*i + 2;
     int largest;
       
-    if(arr[l] > arr[i] && l < n)
+    if(l < n && arr[l] > arr[i])
         largest = l;
     else 
         largest = i;
       
-    if(arr[r] > arr[largest] && r < n)
+    if(r < n && arr[r] > arr[largest])
         largest = r;
       
     if(largest != i)
