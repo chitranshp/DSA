@@ -202,8 +202,8 @@ public:
 
     void initializeDisjointSet(int n) 
     {
-        rank.resize(n, 0);
-        size.resize(n, 0);
+        rank.resize(n, 0);        // Rank, will be initailly 0 there's zero distance between representative and leaf
+        size.resize(n, 1);        // Size will be initially 0, as every set will have one element i.e. representative
         parent.resize(n);
         for(int i = 0; i < n; i++)
             parent[i] = i;
