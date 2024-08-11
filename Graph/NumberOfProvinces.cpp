@@ -99,10 +99,11 @@ public:
 
 /*
 Approach 3: Using Disjoint set
-TC - O(n * n * α(n)) inverse Ackermann function, which grows very slowly and is almost constant for all practical purposes. Can be taken as O(n * n)
+TC - O(n * n * α(n)) inverse Ackermann function, In any conceivable application of a disjoint-set data structure, α(n) <= 4
 SC - O(n)
 
 Note:
+Rank -> Upper bound on the height of tree or distance between representative and farthest leaf node in tree.
 Union by Rank is generally preferred when tree height is a key concern and when the problem involves 
 operations that benefit from managing TREE HEIGHT directly.
 Union by Size can be simpler and effective, particularly in cases where managing the size of each set is
