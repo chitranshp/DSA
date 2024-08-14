@@ -6,10 +6,10 @@ spans all vertices.
 Total edges in a MST for a graph having n vertices -> n - 1
 
 Note: A graph having only distinct edge weights will have only one Minimum spanning tree. 
-      Whereas a graph having non-distinct weights multiple MST's can be possible.
+      Whereas for a graph having non-distinct weights, multiple MST's can be possible.
 
-      We need a triplet pq only, if we want to print the MST as we will need to track the parent also. If we only want to find the weight of MST, we can use
-      pair<int, int> => wt, node
+      **We need a triplet pq only, if we want to print the MST as we will need to track the parent also. If we only want to find the weight of MST, we can use
+      pair<int, int> => wt, node**
 
 Total TC - O(ElogV + VlogV) -> O(ElogV) as in a graph generally E >> V
       SC - O(V) not considering the input
