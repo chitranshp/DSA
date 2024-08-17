@@ -140,3 +140,110 @@ public:
         return  stones.size() - numComponents;
     }
 };
+
+/*
+Using Disjoint set
+TC - O(n * alpha(n))
+SC - O(n)
+
+Here n - maxRows + maxCols + 2
+*/
+
+class Solution {
+public:
+    class DisjointSet 
+    {
+        public:
+        vector<int> parent, size;
+        DisjointSet(int n)
+        {
+            size.resize(n, 1);
+            parent.resize(n);
+            for(int i = 0; i < n; i++)
+                parent[i] = i;
+        }
+        
+        int findParent(int x)
+        {
+            if(parent[x] == x)
+                return x;
+            return parent[x] = findParent(parent[x]);
+        }
+        
+        void unionBySize(int u, int v)
+        {
+            int parentU = findParent(u);
+            int parentV = findParent(v);
+            
+            if(parentU == parentV)
+                return;
+                
+            if(size[parentU] < size[parentV])
+            {
+                parent[parentU] = parentV;
+                size[parentV] += size[parentU];
+            }
+            else if(size[parentU] >= size[parentV])
+            {
+                parent[parentV] = parentU;
+                size[parentU] += size[parentV];
+            }
+            
+            return;
+        }
+
+        // Approach1: For finding parents, to remove invalid parents we can simply check whethter size > 1 or not. Even for unconnected stone size will be 2.
+        // Let's say unconnected stone (x, y) Initially size[x] = size[y] = 1 (default) 
+        // union(x, y) => either size[x] = size[x] + 1 or size[y] = size[y] + 1 which will be equal to 2
+        // Pro: Improved memory usage Cons: For all cases, will have to iterate through whole n(valid + invalid parents) nodes
+        int findNumOfConnectedComponents()
+        {
+            int numComponents = 0;
+            for(int i = 0; i < parent.size(); i++)
+                if(parent[i] == i && size[i] > 1)
+                    numComponents++;
+
+            return numComponents;
+        }
+    };
+
+
+    int removeStones(vector<vector<int>>& stones) {
+        int n = stones.size(), maxRows = 0, maxCols = 0;
+        unordered_set<int> stoneNodes;
+
+        for(int i = 0; i < n; i++)
+        {
+            maxRows = max(stones[i][0], maxRows);
+            maxCols = max(stones[i][1], maxCols);
+        }
+
+        // (maxRows = 3 means there are 4 elements present 0, 1, 2, 3. Same for maxCols)
+        // Here relationship/connection is not between individual vertices but rows and cols which contain stones
+        // Therefore, [0, maxRows + 1) represent rows & [maxRows + 1, maxCols + 1) represent columns
+        DisjointSet ds(maxRows + 1 + maxCols + 1); 
+
+        for(int i = 0; i < n; i++)
+        {
+            int row = stones[i][0];
+            int col = maxRows + stones[i][1] + 1;
+            ds.unionBySize(row, col);
+
+        // Approach 2: For finding connected components (Pros: For sparser stones graph, no need to cover all parents Cons: Need extra data structure that supports storing unique elements like set or map)
+        // For a single stone (x, y) after union operation, it's ultimate parent could be either of x or y(row or column)
+        // As parents vector will have all integers between [0, maxRows + maxCols + 2). Even those rows or column number which do not have a stone will have their parent pointing to themselves as part of default initialization
+        // We can say these as valid parents i.e. parents which have stones pointing to them. Rest all parents are invalid as they do not have any stones pointing to them
+        // We store, each unique row or column belonging to stones in a set. So, that while checking parent we can check for stones direclty, without going through empty coordinates.
+            stoneNodes.insert(row); 
+            stoneNodes.insert(col);
+        }
+
+        int numComponents = 0;
+        for(const int &it: stoneNodes)
+            if(ds.parent[it] == it)
+                numComponents++;
+        
+        // Total number of stones - number of connected components
+        return  stones.size() - ds.findNumOfConnectedComponents();
+    }
+};
