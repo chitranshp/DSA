@@ -9,6 +9,9 @@ class Solution {
 public:
     void dfsHelper(vector<vector<pair<int, double>>> &graph, int src, int &end_node, double currPathProb, double &maxPathProb, vector<int> &vis)
     {
+        if(curr <= 1e-5)        // Pruning to skip unnecessary calculations. As per question, solution with +-1e-5 difference is accepted.
+            return;
+
         if(src == end_node)
         {
             maxPathProb = max(maxPathProb, currPathProb);
