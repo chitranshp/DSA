@@ -46,7 +46,8 @@ public:
 };
 
 /* 
-Approach 2: One pass
+Approach 2: One pass. Similar to post order. Instead of computing for nodes again and again. We do it in a bottom up order. First left subtree, then right and then root.
+It's similar to post order traversal. This approach ensures, we dont have to visit/calculate for a node multiple times and restrict it to one time only.
 TC - O(n)
 SC - O(n)
 */
@@ -58,18 +59,18 @@ public:
         if(root == nullptr)
             return 0;
         
-        int leftHeight = checker(root->left);
+        int leftHeight = checker(root->left);           // Processing for left child
         if(leftHeight == -1)
             return -1;
 
-        int rightHeight = checker(root->right);
+        int rightHeight = checker(root->right);        // Processing for right child    
         if(rightHeight == -1)
             return -1;
 
         if(abs(leftHeight - rightHeight) > 1)
             return -1;
 
-        return 1 + max(leftHeight, rightHeight);
+        return 1 + max(leftHeight, rightHeight);        // Processing for root
     }
 
     bool isBalanced(TreeNode* root) 
