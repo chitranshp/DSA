@@ -118,3 +118,57 @@ public:
         return root;
     }
 };
+
+
+// BFS
+/*
+TC - O(n)
+SC - O(n + 1/ 2) approx O(n) where n + 1/ 2 is the number of leaves in a perfect binary tree
+*/
+
+class Solution {
+public:
+    TreeNode* reverseOddLevels(TreeNode* root) {
+        if(root == nullptr)
+            return root;
+
+        bool rev = false;
+        queue<TreeNode*> q;
+        q.push(root);
+
+        while(q.empty() == false) 
+        {
+            vector<TreeNode*> levelNodes;
+            int n = q.size();        // For processing one level at a time
+
+            for(int i = 0; i < n; i++)
+            {
+                TreeNode* node = q.front();
+                q.pop();
+                levelNodes.push_back(node);        // Stores all nodes for current level.
+
+                if(node->left != nullptr)
+                    q.push(node->left);
+
+                if(node->right != nullptr)
+                    q.push(node->right);
+            }
+
+            // Reverese values for all nodes at current level if it's odd.
+            if(rev == true)
+            {
+                int left = 0, right = n - 1;
+                while(left < right)
+                {
+                    swap(levelNodes[left]->val, levelNodes[right]->val);        // Just updating the values stored at those nodes. Leaving children unchanged.
+                    left++;
+                    right--;
+                }
+            }
+
+            rev = !rev;
+        }
+
+        return root;
+    }
+};
