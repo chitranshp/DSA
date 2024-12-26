@@ -77,3 +77,44 @@ public:
         return root;
     }
 };
+
+/*
+Optimized DFS approach: Each node acts as root for the elements stored under it. So, we can use DFS to break down the problems and solve it using recursion.
+
+Since the binary tree is perfect, it is symmetrical in nature. Therefore, to reverse the levels, we would want to swap the left value of the left child with the 
+right value of the right child, and the right value of the left child with the left value of the right child.
+Algorithm:
+1. Call traverseDFS(root->left, root->child, level = 0)
+    2. If either of left or right is null, return (Base case)
+    3. For non null case, swap VALUES of left and right when level is even.
+    4. Recursively call, traverseDFS(leftchild->left, rightChild->right) & traverseDFS(leftChild->right, rightChild->left)
+    5. Continue untill all levels are traversed.
+6. Return updated root.
+
+TC - O(n) where n is number of nodes in tree
+SC - O(h) where h is height of tree
+*/
+
+class Solution {
+public:
+    void traverseDFS(TreeNode* leftChild, TreeNode* rightChild, int level) {
+        if(leftChild == nullptr || rightChild == nullptr)
+            return;
+
+        if(level % 2 == 0)
+        {
+            swap(leftChild->val, rightChild->val);
+        }
+
+        traverseDFS(leftChild->left, rightChild->right, level + 1);
+        traverseDFS(leftChild->right, rightChild->left, level + 1);
+    }
+
+    TreeNode* reverseOddLevels(TreeNode* root) {
+        if(root == nullptr)
+            return root;
+
+        traverseDFS(root->left, root->right, 0);
+        return root;
+    }
+};
