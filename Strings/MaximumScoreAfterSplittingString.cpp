@@ -41,3 +41,42 @@ public:
         return maxScore;
     }
 };
+
+/*
+maxscore = max(leftzeros + rightOnes) 
+         = max(leftZeros + 0 + rightOnes)
+         = max(leftZeros - leftOnes + leftOnes + rightOnes)
+         = max(leftZeros - leftOnes + totalOnes) 
+         = max(leftZeros - leftOnes) + totalOnes as totalOnes will be constant
+
+TC = O(n)
+SC = O(n)
+*/
+
+class Solution {
+public:
+    int maxScore(string s) 
+    {
+        int totalOnes = 0;
+        int maxScore = INT_MIN;
+        int leftZeros = 0, leftOnes = 0;
+
+        // Traverse upto last VALID split to consider all valid splits. Split with empty left or right subsplit is invalid
+        for(int i = 0; i < s.size() - 1; i++)
+        {
+            if(s[i] == '0')
+            {
+                leftZeros++;
+            }
+            else
+            {
+                leftOnes++;
+            }
+
+            maxScore = max(maxScore, leftZeros - leftOnes);
+        }
+
+        totalOnes = leftOnes + (s.back() == '1'? 1: 0);
+        return maxScore + totalOnes;
+    }
+};
