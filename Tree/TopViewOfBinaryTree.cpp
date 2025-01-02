@@ -1,8 +1,6 @@
 // https://www.geeksforgeeks.org/problems/top-view-of-binary-tree/1
 
 /*
-Why Level order traversal/BFS?
-
 TC - O(nlogk) where k is the number of unique horizontal distances(for map insertion). Total O(n) nodes will be traversed.
 SC - O(n) for queue, map and vector
 */
