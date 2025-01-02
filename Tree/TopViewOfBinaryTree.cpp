@@ -2,6 +2,7 @@
 
 /*
 TC - O(nlogk) where k is the number of unique horizontal distances(for map insertion). Total O(n) nodes will be traversed.
+In worse case, O(nlogn) where k = n
 SC - O(n) for queue, map and vector
 */
 
