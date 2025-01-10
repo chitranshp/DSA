@@ -77,6 +77,12 @@ public:
         stringQueue.push(str);  // Pushing last saved node as string in string Queue
 
         // This part uses that queue of string and converts it into a tree, by treating it as level order traversal result
+        TreeNode* root = deserializeHelper(stringQueue);
+        return root;
+    }
+
+    TreeNode* deserializeHelper(queue<string> stringQueue)
+    {
         queue<TreeNode*> nodeQueue;
         int rootval = stoi(stringQueue.front());
         stringQueue.pop();
