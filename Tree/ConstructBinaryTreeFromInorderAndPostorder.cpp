@@ -27,6 +27,7 @@ public:
 
     TreeNode* buildSubtree(const vector<int> &inorder, int inStart, int inEnd, const vector<int> &postorder, int postStart, int postEnd, unordered_map<int, int> &inorderIndexMap)
     {
+        // If the subtree is empty return null
         if(inStart > inEnd || postStart > postEnd)
             return nullptr;
 
