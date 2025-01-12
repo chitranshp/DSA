@@ -101,3 +101,42 @@ public:
     }
 };
 
+/*
+Optimal approach: Threaded binary tree
+For every node, we will have 2 cases
+1. Has a left subtree 
+   Find the rightmost child in that subtree. Connect it to right child of current node. 
+   Make the left child of current node as it's right child
+   Then make the left child null
+   Move to the right of current node. As left was made null alredy
+2. If it does not have a left subtree, then again move to the right.
+
+TC - O(n)
+SC - O(1)
+
+*/
+
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        TreeNode* curr = root;
+        while(curr != nullptr)
+        {
+            if(curr->left != nullptr)
+            {
+                TreeNode* prev = curr->left;
+                while(prev != nullptr && prev->right != nullptr)
+                    prev = prev->right;
+                
+
+                prev->right = curr->right;
+                curr->right = curr->left;
+                curr->left = nullptr;
+            }
+
+            curr = curr->right;
+        }
+
+        return;
+    }
+};
