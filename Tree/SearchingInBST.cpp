@@ -1,7 +1,7 @@
 // https://leetcode.com/problems/search-in-a-binary-search-tree/
 
 /*
-TC - O(logn)
+TC - O(n) for skewed tree and O(logn) for balanced binary tree
 SC - O(logn) Recursion stack
 */
 
@@ -19,7 +19,7 @@ public:
 };
 
 /*
-TC - O(logn)
+TC - O(n)
 SC - O(1)
 */
 
