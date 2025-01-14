@@ -3,7 +3,7 @@
 /*
 Find a suitable(satisying condition of binary search tree) node whose child node is empty, and then insert our node. Our newly inserted node will be a leaf as it's left 
 and right child will be null always because of the way we are inserting it
-TC - O(n) worst case
+TC - O(logn) for height balanced tree whereas O(n) for skewed tree
 SC - O(1)
 */
 
