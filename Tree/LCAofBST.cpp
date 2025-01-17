@@ -2,6 +2,11 @@
 
 /*
 LCA will be the last processed(highest depth) ancestor which is common to both p & q
+
+If p and q are on opposite sides of the root:
+This is the crucial case, as one will be in the left subtree and the other will be in the right subtree.
+In this case, the current root is the LCA, because it is the deepest node where p and q diverge.
+
 TC - O(n)
 SC - O(n) for skewed tree
 */
