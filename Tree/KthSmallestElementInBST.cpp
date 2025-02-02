@@ -31,3 +31,33 @@ public:
         return res;
     }
 };
+
+/*
+Iterative approach
+TC - O(n)
+SC - O(1)
+*/
+
+    int kthSmallest(TreeNode* root, int k) {
+        // int res = INT_MIN;
+        // helper(root, k, res);
+        // return res;
+
+        stack<TreeNode*> st;
+        while(true)
+        {
+            while(root != nullptr)
+            {
+                st.push(root);
+                root = root->left;
+            }
+
+            // root will be equal to nullptr here
+            root = st.top();        
+            st.pop();
+            if(--k == 0)
+                return root->val;
+
+            root = root->right;
+        }
+    }
